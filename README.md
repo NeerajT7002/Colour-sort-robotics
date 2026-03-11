@@ -1,4 +1,4 @@
-# Deep Learning–Based Visual Grasp Quality Estimation and Pick Verification Using a 4-DOF Robotic Arm
+# HSV–Based Visual Grasp Quality Estimation and Pick Verification Using a 4-DOF Robotic Arm
 
 ## Project Overview
 
