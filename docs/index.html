@@ -388,10 +388,10 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   <div class="h-blob h-blob2"></div>
   <div class="h-eyebrow">Amrita School of AI &nbsp;—&nbsp; Team 11 &nbsp;—&nbsp; Course 22AIE214</div>
   <h1 class="h-title">
-    <span class="blk">DEEP LEARNING</span><br>
-    <span class="vlt">VISUAL GRASP</span><br>
-    <span class="blk">QUALITY</span><br>
-    <span class="tl">ESTIMATION</span>
+    <span class="blk">COLOUR BASED</span><br>
+    <span class="vlt">SORTING</span><br>
+    <span class="blk">ROBOT</span><br>
+    
   </h1>
   <p class="h-sub">A 4-DOF robotic arm project using deep learning for grasp quality estimation, post-lift pick verification, and color-based object sorting. Hardware was assembled and demonstrated — the complete pipeline was implemented and validated in PyBullet simulation.</p>
   <div class="h-status">
@@ -828,144 +828,4 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
 <!-- METRICS -->
 <section id="metrics">
   <div class="section-badge sb-sim"><span class="sb-dot"></span>Simulation — Results</div>
-<<<<<<< HEAD
   <div
-=======
-  <div class="s-eyebrow eye-sim">Results</div>
-  <div class="s-title">THE NUMBERS</div>
-  <div class="metrics-grid rv">
-    <div class="met-card"><div class="met-val p">94<span style="font-size:2.2rem">%</span></div><div class="met-lbl">Grasp Success Rate</div><div class="met-desc">Contact-point verified grasps across 30-cube simulation runs. Tracked pick_attempts vs grasp_success per run.</div></div>
-    <div class="met-card"><div class="met-val c">100<span style="font-size:2.2rem">%</span></div><div class="met-lbl">Sorting Accuracy</div><div class="met-desc">Every verified pick placed in the correct color-coded drop zone. place_success equalled grasp_success across all runs.</div></div>
-    <div class="met-card"><div class="met-val a">30</div><div class="met-lbl">Cubes Per Run</div><div class="met-desc">30 randomly spawned cubes across 6 colors per simulation run. System consistency tested across multiple repeated runs.</div></div>
-    <div class="met-card"><div class="met-val g">240<span style="font-size:2.2rem">Hz</span></div><div class="met-lbl">Physics Rate</div><div class="met-desc">PyBullet ran at 240 Hz. IK solver called every step for smooth trajectory control via Franka Panda's 7 joints.</div></div>
-  </div>
-  <div style="margin-top:2rem;border:1px solid var(--border);border-radius:4px;padding:1.5rem 2rem;background:var(--off);">
-    <div style="font-family:'Space Mono',monospace;font-size:.56rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted2);margin-bottom:.8rem;">Planned Hardware Evaluation Metrics</div>
-    <div style="display:flex;gap:2rem;flex-wrap:wrap;">
-      <div style="font-size:.84rem;color:var(--muted);">📊 Grasp success rate across multiple trials</div>
-      <div style="font-size:.84rem;color:var(--muted);">📊 Pick verification accuracy</div>
-      <div style="font-size:.84rem;color:var(--muted);">📊 Color sorting accuracy</div>
-      <div style="font-size:.84rem;color:var(--muted);">📊 System consistency during repeated runs</div>
-    </div>
-  </div>
-</section>
-
-<!-- VIDEO DEMO -->
-<section id="video">
-  <div class="section-badge sb-sim"><span class="sb-dot"></span>Demo</div>
-  <div class="s-eyebrow eye-sim">Partial Implementation Demo</div>
-  <div class="s-title">VIDEO DEMONSTRATION</div>
-  <p class="s-lead">Demonstration of the physical arm and working color sorting mechanism. The simulation demo shows the complete pick-verify-sort pipeline running end-to-end.</p>
-
-  <div class="video-layout rv">
-    <!-- VIDEO FRAME — replace the src inside the iframe or video tag with your actual link -->
-    <div class="video-frame" id="videoFrame">
-      <div class="vf-placeholder" id="vfPlaceholder">
-        <div class="vf-icon">
-          <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
-        <div class="vf-title">Demo Video</div>
-        <div class="vf-sub">Paste your YouTube link or video file URL below to embed it here.</div>
-        <div class="vf-badge">⚠️ Video not yet attached</div>
-      </div>
-      <!-- UNCOMMENT ONE OF THESE WHEN READY: -->
-      <!-- YouTube: <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe> -->
-      <!-- Local/Drive video: <video src="YOUR_VIDEO_URL" controls></video> -->
-    </div>
-
-    <div class="video-info">
-      <div class="vi-card">
-        <div class="vi-label">Hardware Demo</div>
-        <div class="vi-title">Partial Hardware Implementation</div>
-        <div class="vi-desc">Shows the physical 4-DOF arm, servo joints, gripper mechanism, and Arduino controller that were assembled. Demonstrates the partial integration achieved before the review.</div>
-        <div class="vi-status">
-          <span class="vi-tag vt-partial">✅ Arm Assembled</span>
-          <span class="vi-tag vt-done">✅ Servos Working</span>
-          <span class="vi-tag vt-done">✅ Color Sorting Working</span>
-          <span class="vi-tag vt-pending">✅ Vision Pipeline Working (OpenCV HSV Detection)</span>
-        </div>
-      </div>
-      <div class="vi-card">
-        <div class="vi-label">Simulation Demo</div>
-        <div class="vi-title">Full Pipeline in PyBullet</div>
-        <div class="vi-desc">Shows the Franka Panda robot sorting all 30 cubes — approaching, grasping, running pick verification, and placing RED/GREEN/BLUE cubes into their correct drop zones. YELLOW, PURPLE, CYAN are correctly skipped.</div>
-        <div class="vi-status">
-          <span class="vi-tag vt-done">✅ Fully Working</span>
-          <span class="vi-tag vt-done">94% Grasp Rate</span>
-          <span class="vi-tag vt-done">100% Sort Accuracy</span>
-        </div>
-      </div>
-
-      <!-- HOW TO EMBED -->
-      <div class="embed-instructions">
-        <div class="ei-hd">How to attach your video</div>
-        <div class="ei-body">
-          <strong>YouTube:</strong> Replace <code>YOUR_VIDEO_ID</code> in the iframe line above.<br>
-          <strong>Google Drive:</strong> Get shareable link → change <code>/view</code> to <code>/preview</code> → use in iframe.<br>
-          <strong>Direct file:</strong> Uncomment the <code>&lt;video&gt;</code> tag and paste the URL.<br><br>
-          Just uncomment the right line in the HTML — the frame is already set up.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TIMELINE -->
-<section id="timeline" class="alt">
-  <div class="s-eyebrow eye-gen">Project Timeline</div>
-  <div class="s-title">4-WEEK PLAN</div>
-  <div class="tl-grid rv">
-    <div class="tl-card"><div class="tl-w">W1</div><div class="tl-t">Literature Review + System Design</div><div class="tl-d">Studied grasp quality estimation methods. Finalized system architecture, data pipeline design, and hardware wiring. Set up the PyBullet simulation environment.</div><div class="tl-bar" style="background:var(--accent)"></div></div>
-    <div class="tl-card"><div class="tl-w">W2</div><div class="tl-t">Model Selection + Training</div><div class="tl-d">Selected the deep learning grasp quality model using TensorFlow / PyTorch. Validated inference accuracy on workspace images from the RGB camera.</div><div class="tl-bar" style="background:var(--sim)"></div></div>
-    <div class="tl-card"><div class="tl-w">W3</div><div class="tl-t">Pick Verification + Integration</div><div class="tl-d">Implemented pick verification in simulation via contact-point detection. Began hardware integration of Arduino, servos, and camera. Integration challenges encountered.</div><div class="tl-bar" style="background:var(--amber)"></div></div>
-    <div class="tl-card"><div class="tl-w">W4</div><div class="tl-t">Simulation + Evaluation</div><div class="tl-d">Completed full pipeline in PyBullet simulation. Ran evaluation — 94% grasp success rate, 100% sorting accuracy across 30 randomized cubes. Hardware integration ongoing.</div><div class="tl-bar" style="background:var(--green)"></div></div>
-  </div>
-</section>
-
-<!-- TEAM -->
-<section id="team">
-  <div class="s-eyebrow eye-gen" style="justify-content:center">Contributors</div>
-  <div class="s-title">TEAM 11</div>
-  <div class="team-grid rv">
-    <div class="tc-card" data-n="01"><div class="tc-av">HM</div><div class="tc-name">Harish Manukonda</div><div class="tc-id">CB.SC.U4AIE24115</div></div>
-    <div class="tc-card" data-n="02"><div class="tc-av">NT</div><div class="tc-name">Neeraj T</div><div class="tc-id">CB.SC.U4AIE24141</div></div>
-    <div class="tc-card" data-n="03"><div class="tc-av">PK</div><div class="tc-name">Puneeth Kumar</div><div class="tc-id">CB.SC.U4AIE24146</div></div>
-    <div class="tc-card" data-n="04"><div class="tc-av">SS</div><div class="tc-name">Siddarth Sankar</div><div class="tc-id">CB.SC.U4AIE24151</div></div>
-  </div>
-  <div class="course-box"><div class="course-txt">Team 11 — Amrita School of Artificial Intelligence — Course <span>22AIE214</span>: Artificial Intelligence in Robotics</div></div>
-</section>
-
-<footer>
-  <div class="f-logo">4DOF<em>.</em>ARM</div>
-  <ul class="f-links">
-    <li><a href="#intro">Overview</a></li>
-    <li><a href="#hardware">Hardware</a></li>
-    <li><a href="#simulation">Simulation</a></li>
-    <li><a href="#video">Demo</a></li>
-    <li><a href="#team">Team</a></li>
-  </ul>
-  <div class="f-copy">Team 11 · Amrita School of AI · 22AIE214</div>
-</footer>
-
-<script>
-  const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  (function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cur.style.left=mx+'px';cur.style.top=my+'px';curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
-  document.querySelectorAll('a,button,.sm-node,.hw-comp,.prob-card,.obj-row,.pv-step,.scope-card').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';});
-    el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';});
-  });
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*65);obs.unobserve(e.target);}});
-  },{threshold:.08});
-  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-  const secs=document.querySelectorAll('section[id]'),links=document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll',()=>{
-    let c='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id;});
-    links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c));
-  });
-</script>
-</body>
-</html>
->>>>>>> 4901513da5bdc1994463fc8dafba55d6b9a2b4ba
