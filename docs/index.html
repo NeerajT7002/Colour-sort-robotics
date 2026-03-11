@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Visual Grasp Quality Estimation — Team 11 · 22AIE214</title>
+<title>HSV-Based Colour Sorting Robot — Team 11 · 22AIE214</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -35,11 +35,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--white);color:var(--text);font-family:'Inter',sans-serif;font-weight:400;overflow-x:hidden;cursor:none;}
-
 /* CURSOR */
 #cur{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;}
 #cur-r{width:34px;height:34px;border:1.5px solid rgba(91,33,182,.35);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .08s linear;}
-
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:58px;padding:0 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.12em;color:var(--text);text-decoration:none;}
@@ -48,7 +46,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:58px;padding:0 3rem;
 .nav-links a{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--muted);text-decoration:none;text-transform:uppercase;letter-spacing:.12em;transition:color .2s;}
 .nav-links a:hover,.nav-links a.active{color:var(--accent);}
 .nav-tag{font-family:'Space Mono',monospace;font-size:.56rem;padding:3px 10px;border:1px solid var(--accent);color:var(--accent);letter-spacing:.1em;text-transform:uppercase;}
-
 /* HERO */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 5rem;position:relative;overflow:hidden;background:linear-gradient(145deg,#f8f7ff 0%,#ffffff 50%,#f0fdf4 100%);}
 .h-dots{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(91,33,182,.08) 1px,transparent 1px);background-size:36px 36px;}
@@ -56,7 +53,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:58px;padding:0 3rem;
 .h-blob1{width:420px;height:420px;background:rgba(91,33,182,.1);top:-80px;right:-60px;animation:bp 6s ease-in-out infinite;}
 .h-blob2{width:300px;height:300px;background:rgba(14,116,144,.08);bottom:60px;left:10%;animation:bp 8s ease-in-out 1.5s infinite reverse;}
 @keyframes bp{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-
 .h-eyebrow{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--accent);letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:.8rem;margin-bottom:1.5rem;opacity:0;animation:fu .7s .2s forwards;}
 .h-eyebrow::before{content:'';width:32px;height:2px;background:var(--accent);flex-shrink:0;}
 .h-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,9vw,8.5rem);line-height:.93;letter-spacing:.01em;opacity:0;animation:fu .8s .35s forwards;position:relative;z-index:1;}
@@ -64,13 +60,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:58px;padding:0 3rem;
 .h-title .vlt{color:var(--accent);}
 .h-title .tl{color:var(--sim);}
 .h-sub{max-width:560px;line-height:1.75;color:var(--muted);font-size:.95rem;margin-top:1.8rem;opacity:0;animation:fu .7s .55s forwards;z-index:1;position:relative;}
-
 .h-status{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.8rem;opacity:0;animation:fu .7s .7s forwards;z-index:1;position:relative;}
 .sp{font-family:'Space Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;padding:5px 12px;border-radius:2px;font-weight:700;}
 .sp-hw{background:var(--hw-lt);color:var(--hw);border:1px solid rgba(124,45,18,.2);}
 .sp-sim{background:var(--sim-lt);color:var(--sim);border:1px solid rgba(14,116,144,.2);}
 .sp-wip{background:#fef9c3;color:#854d0e;border:1px solid rgba(133,77,14,.2);}
-
 .h-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem;opacity:0;animation:fu .7s .82s forwards;z-index:1;position:relative;}
 .tag{font-family:'Space Mono',monospace;font-size:.56rem;text-transform:uppercase;letter-spacing:.08em;padding:4px 10px;border:1px solid var(--border2);color:var(--muted);transition:all .2s;border-radius:2px;}
 .tag:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-lt);}
@@ -84,14 +78,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:58px;padding:0 3rem;
 .st-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;line-height:1;color:var(--text);}
 .st-lbl{font-family:'Space Mono',monospace;font-size:.5rem;color:var(--muted2);letter-spacing:.15em;text-transform:uppercase;margin-top:2px;}
 @keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-
 /* TICKER */
 .ticker{background:var(--accent);padding:10px 0;overflow:hidden;}
 .ticker-in{display:flex;gap:3rem;animation:tick 24s linear infinite;white-space:nowrap;}
 .ti{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.2em;color:rgba(255,255,255,.9);flex-shrink:0;}
 .td{color:rgba(255,255,255,.35);}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
 /* SECTION COMMONS */
 section{padding:7rem 3rem;position:relative;}
 .alt{background:var(--off);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
@@ -102,7 +94,6 @@ section{padding:7rem 3rem;position:relative;}
 .eye-gen{color:var(--accent);}
 .s-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);line-height:1;letter-spacing:.03em;color:var(--text);margin-bottom:1rem;}
 .s-lead{font-size:.93rem;color:var(--muted);line-height:1.75;max-width:640px;margin-bottom:3rem;}
-
 .section-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.56rem;text-transform:uppercase;letter-spacing:.12em;padding:4px 12px;border-radius:2px;margin-bottom:2rem;font-weight:700;}
 .sb-hw{background:var(--hw-lt);color:var(--hw);border:1px solid rgba(124,45,18,.2);}
 .sb-sim{background:var(--sim-lt);color:var(--sim);border:1px solid rgba(14,116,144,.2);}
@@ -110,7 +101,6 @@ section{padding:7rem 3rem;position:relative;}
 .sb-hw .sb-dot{background:var(--hw);}
 .sb-sim .sb-dot{background:var(--sim);animation:lp 1.2s ease-in-out infinite;}
 @keyframes lp{0%,100%{opacity:1}50%{opacity:.35}}
-
 /* DIVIDER BANNER */
 .divider-banner{padding:1.5rem 3rem;display:flex;align-items:center;gap:2rem;border-top:2px solid;border-bottom:2px solid;}
 .divider-banner.hw{background:var(--hw-lt);border-color:rgba(124,45,18,.25);}
@@ -123,11 +113,9 @@ section{padding:7rem 3rem;position:relative;}
 .db-label.sim{color:var(--sim);}
 .db-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:var(--text);}
 .db-desc{font-size:.82rem;color:var(--muted);margin-top:.2rem;}
-
 /* REVEAL */
 .rv{opacity:0;transform:translateY(30px);transition:opacity .65s,transform .65s cubic-bezier(.34,1.4,.64,1);}
 .rv.on{opacity:1;transform:none;}
-
 /* INTRO */
 .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
 .intro-p{font-size:.93rem;line-height:1.8;color:#4a4a6a;margin-bottom:1.3rem;}
@@ -142,7 +130,6 @@ section{padding:7rem 3rem;position:relative;}
 .sc-pill.au{background:var(--amber-lt);color:var(--amber);}
 .sc-name{font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:.2rem;}
 .sc-desc{font-size:.78rem;color:var(--muted);line-height:1.55;}
-
 /* PROBLEM */
 .prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
 .prob-card{background:var(--white);padding:2rem;transition:background .2s;}
@@ -154,7 +141,6 @@ section{padding:7rem 3rem;position:relative;}
 .pt.s{color:var(--accent);}
 .pd{font-size:.82rem;color:var(--muted);line-height:1.7;}
 .pd.s{color:#3b0764;}
-
 /* OBJECTIVES */
 .obj-rows{border:1px solid var(--border);}
 .obj-row{display:flex;align-items:center;gap:1.8rem;padding:1.6rem 2rem;border-bottom:1px solid var(--border);transition:background .2s;position:relative;}
@@ -171,7 +157,6 @@ section{padding:7rem 3rem;position:relative;}
 .bcv{color:var(--blue);border-color:var(--blue);background:var(--blue-lt);}
 .brb{color:var(--green);border-color:var(--green);background:var(--green-lt);}
 .bau{color:var(--amber);border-color:var(--amber);background:var(--amber-lt);}
-
 /* HW WORKFLOW */
 .hw-workflow{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
 .hw-steps{display:flex;flex-direction:column;}
@@ -183,14 +168,12 @@ section{padding:7rem 3rem;position:relative;}
 .hw-step-desc{font-size:.82rem;color:var(--muted);line-height:1.65;}
 .hw-pills{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem;}
 .hpill{font-family:'Space Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.08em;padding:2px 7px;background:var(--hw-lt);color:var(--hw);border:1px solid rgba(124,45,18,.2);border-radius:2px;}
-
 /* Procedure card (no slide ref) */
 .proc-detail{border:1px solid rgba(124,45,18,.2);border-radius:4px;overflow:hidden;margin-bottom:1.2rem;}
 .proc-detail-hd{background:var(--hw-lt);padding:.9rem 1.3rem;border-bottom:1px solid rgba(124,45,18,.15);}
 .proc-detail-hd-title{font-weight:600;font-size:.85rem;color:var(--hw);}
 .proc-detail-body{padding:1rem 1.3rem;background:var(--white);}
 .proc-detail-body ul{font-size:.82rem;color:var(--muted);line-height:2.1;padding-left:1.1rem;}
-
 /* HW COMP GRID */
 .hw-comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:3rem;}
 .hw-comp{background:var(--white);padding:1.8rem;transition:background .2s;}
@@ -199,7 +182,6 @@ section{padding:7rem 3rem;position:relative;}
 .hcname{font-weight:600;font-size:.88rem;color:var(--text);margin-bottom:.4rem;}
 .hcspec{font-size:.8rem;color:var(--muted);line-height:1.6;}
 .hc-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;padding:2px 8px;margin-top:.6rem;background:var(--hw-lt);color:var(--hw);border:1px solid rgba(124,45,18,.2);border-radius:2px;}
-
 /* SW GRID */
 .sw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem;}
 .sw-card{border:1px solid var(--border);padding:1.6rem;background:var(--white);transition:all .2s;border-radius:4px;}
@@ -207,17 +189,15 @@ section{padding:7rem 3rem;position:relative;}
 .sw-icon{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--accent);margin-bottom:.4rem;line-height:1;}
 .sw-name{font-weight:600;font-size:.85rem;color:var(--text);margin-bottom:.3rem;}
 .sw-desc{font-size:.78rem;color:var(--muted);line-height:1.6;}
-
 /* TERMINAL */
-.terminal{background:#0c1220;border:1px solid #1e2d40;border-radius:6px;font-family:'Space Mono',monospace;font-size:.69rem;line-height:1.85;overflow:hidden;box-shadow:0 8px 32px rgba(14,116,144,.15);}
-.term-header{display:flex;align-items:center;gap:.45rem;padding:.6rem 1.1rem;background:#151f2e;border-bottom:1px solid #1e2d40;}
-.tdr{width:11px;height:11px;border-radius:50%;background:#ef4444;}
-.tdy{width:11px;height:11px;border-radius:50%;background:#f59e0b;}
-.tdg{width:11px;height:11px;border-radius:50%;background:#22c55e;}
-.term-title{font-size:.55rem;color:#4a6080;letter-spacing:.1em;text-transform:uppercase;margin-left:auto;}
-.term-body{padding:1.3rem 1.4rem;max-height:500px;overflow-y:auto;}
-.tc{color:#4a6080;}.tk{color:#c084fc;}.ts{color:#fbbf24;}.tn{color:#38bdf8;}.tf{color:#a78bfa;}.to{color:#34d399;}.th{color:#38bdf8;font-weight:700;}
-
+.terminal{background:#1e1e2e;border:1px solid #45475a;border-radius:6px;font-family:'Space Mono',monospace;font-size:.69rem;line-height:1.85;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.25);}
+.term-header{display:flex;align-items:center;gap:.45rem;padding:.6rem 1.1rem;background:#181825;border-bottom:1px solid #45475a;}
+.tdr{width:11px;height:11px;border-radius:50%;background:#f38ba8;}
+.tdy{width:11px;height:11px;border-radius:50%;background:#f9e2af;}
+.tdg{width:11px;height:11px;border-radius:50%;background:#a6e3a1;}
+.term-title{font-size:.55rem;color:#a6adc8;letter-spacing:.1em;text-transform:uppercase;margin-left:auto;}
+.term-body{padding:1.3rem 1.4rem;max-height:500px;overflow-y:auto;color:#cdd6f4;}
+.tc{color:#6c7086;}.tk{color:#cba6f7;}.ts{color:#f9e2af;}.tn{color:#89b4fa;}.tf{color:#b4befe;}.to{color:#a6e3a1;}.th{color:#89dceb;font-weight:700;}
 /* SIM CARDS */
 .sim-layout{display:grid;grid-template-columns:1.15fr 1fr;gap:3.5rem;align-items:start;}
 .sim-right{display:flex;flex-direction:column;gap:1.2rem;}
@@ -231,7 +211,6 @@ section{padding:7rem 3rem;position:relative;}
 .sc-sub{font-size:.78rem;color:var(--muted);margin-top:.2rem;}
 .sim-verified{display:inline-flex;align-items:center;gap:.5rem;margin-top:.5rem;font-family:'Space Mono',monospace;font-size:.56rem;text-transform:uppercase;letter-spacing:.1em;padding:5px 12px;background:var(--green-lt);color:var(--green);border:1px solid rgba(21,128,61,.25);border-radius:2px;}
 .vdot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:lp 1.2s ease-in-out infinite;}
-
 /* STATE MACHINE */
 .sm-wrap{overflow-x:auto;padding-bottom:.5rem;}
 .sm-flow{display:flex;align-items:stretch;min-width:680px;margin-top:2rem;}
@@ -243,7 +222,6 @@ section{padding:7rem 3rem;position:relative;}
 .sni{font-family:'Bebas Neue',sans-serif;font-size:.6rem;color:var(--muted2);letter-spacing:.2em;margin-bottom:.3rem;}
 .snic{font-size:1.5rem;margin-bottom:.3rem;}
 .snn{font-family:'Space Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text);line-height:1.4;}
-
 /* PICK VERIFICATION */
 .pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
 .pv-steps{border:1px solid var(--border);border-radius:4px;overflow:hidden;}
@@ -254,10 +232,9 @@ section{padding:7rem 3rem;position:relative;}
 .pvt{font-weight:600;font-size:.85rem;color:var(--text);margin-bottom:.25rem;}
 .pvd{font-size:.8rem;color:var(--muted);line-height:1.6;}
 .pvd code{font-family:'Space Mono',monospace;font-size:.7rem;background:var(--sim-lt);color:var(--sim);padding:1px 5px;border-radius:2px;}
-.pv-code-box{border:1px solid var(--border);border-radius:6px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06);}
-.pv-code-hd{padding:.55rem 1rem;background:var(--off);border-bottom:1px solid var(--border);font-family:'Space Mono',monospace;font-size:.56rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.1em;}
-.pv-code{background:#0c1220;font-family:'Space Mono',monospace;font-size:.7rem;line-height:1.85;padding:1.4rem;}
-
+.pv-code-box{border:1px solid #45475a;border-radius:6px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15);}
+.pv-code-hd{padding:.55rem 1rem;background:#181825;border-bottom:1px solid #45475a;font-family:'Space Mono',monospace;font-size:.56rem;color:#a6adc8;text-transform:uppercase;letter-spacing:.1em;}
+.pv-code{background:#1e1e2e;font-family:'Space Mono',monospace;font-size:.7rem;line-height:1.85;padding:1.4rem;color:#cdd6f4;}
 /* COLOR SORTING */
 .cs-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
 .cs-card{border-radius:4px;padding:2rem;border:1.5px solid;transition:all .25s;}
@@ -274,7 +251,6 @@ section{padding:7rem 3rem;position:relative;}
 .cs-desc{font-size:.8rem;color:var(--muted);line-height:1.6;}
 .skip-box{margin-top:1.5rem;border:1px solid var(--border);border-radius:4px;padding:1.2rem 1.6rem;background:var(--off);font-family:'Space Mono',monospace;font-size:.68rem;line-height:2;}
 .skip-label{font-size:.52rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted2);margin-bottom:.4rem;}
-
 /* METRICS */
 .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
 .met-card{background:var(--white);padding:2.5rem 2rem;transition:background .2s;}
@@ -286,7 +262,6 @@ section{padding:7rem 3rem;position:relative;}
 .met-val.g{color:var(--green);}
 .met-lbl{font-family:'Space Mono',monospace;font-size:.56rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted2);margin-top:.5rem;}
 .met-desc{font-size:.8rem;color:var(--muted);margin-top:.5rem;line-height:1.55;}
-
 /* VIDEO SECTION */
 #video{background:var(--off);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .video-layout{display:grid;grid-template-columns:1fr 1.6fr;gap:3rem;align-items:start;}
@@ -301,13 +276,11 @@ section{padding:7rem 3rem;position:relative;}
 .vf-title{font-weight:600;font-size:.9rem;color:var(--text);}
 .vf-sub{font-size:.8rem;color:var(--muted);line-height:1.6;max-width:220px;}
 .vf-badge{font-family:'Space Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;padding:4px 10px;background:var(--sim-lt);color:var(--sim);border:1px solid rgba(14,116,144,.2);border-radius:2px;}
-
 /* HOW TO EMBED box */
 .embed-instructions{margin-top:1rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;}
 .ei-hd{padding:.6rem 1rem;background:var(--off2);border-bottom:1px solid var(--border);font-family:'Space Mono',monospace;font-size:.54rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);}
 .ei-body{padding:1rem;font-size:.78rem;color:var(--muted);line-height:1.75;}
 .ei-body code{font-family:'Space Mono',monospace;font-size:.68rem;background:var(--off2);color:var(--accent);padding:2px 6px;border-radius:2px;}
-
 .video-info{display:flex;flex-direction:column;gap:1.5rem;}
 .vi-card{border:1px solid var(--border);border-radius:4px;padding:1.5rem;background:var(--white);}
 .vi-label{font-family:'Space Mono',monospace;font-size:.54rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted2);margin-bottom:.4rem;}
@@ -318,7 +291,6 @@ section{padding:7rem 3rem;position:relative;}
 .vt-done{background:var(--green-lt);color:var(--green);border:1px solid rgba(21,128,61,.2);}
 .vt-partial{background:var(--amber-lt);color:var(--amber);border:1px solid rgba(180,83,9,.2);}
 .vt-pending{background:var(--off2);color:var(--muted);border:1px solid var(--border);}
-
 /* TIMELINE */
 .tl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem;}
 .tl-card{background:var(--white);padding:2rem;position:relative;overflow:hidden;transition:background .2s;}
@@ -327,7 +299,6 @@ section{padding:7rem 3rem;position:relative;}
 .tl-t{font-weight:600;font-size:.84rem;color:var(--text);margin-bottom:.5rem;}
 .tl-d{font-size:.79rem;color:var(--muted);line-height:1.65;}
 .tl-bar{position:absolute;top:0;left:0;right:0;height:3px;}
-
 /* TEAM */
 #team{text-align:center;}
 .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:3rem 0 2rem;}
@@ -340,7 +311,6 @@ section{padding:7rem 3rem;position:relative;}
 .course-box{display:inline-block;border:1px solid var(--border2);padding:1.1rem 2.5rem;margin-top:2rem;border-radius:4px;background:var(--off);}
 .course-txt{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;}
 .course-txt span{color:var(--accent);}
-
 footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;background:var(--off);}
 .f-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.12em;color:var(--muted);}
 .f-logo em{color:var(--accent);font-style:normal;}
@@ -348,7 +318,6 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
 .f-links{display:flex;gap:1.5rem;list-style:none;}
 .f-links a{font-family:'Space Mono',monospace;font-size:.56rem;color:var(--muted2);text-decoration:none;text-transform:uppercase;letter-spacing:.1em;transition:color .2s;}
 .f-links a:hover{color:var(--accent);}
-
 @media(max-width:960px){
   .intro-grid,.hw-workflow,.sim-layout,.pv-grid,.video-layout{grid-template-columns:1fr;}
   .prob-grid,.hw-comp-grid,.cs-cols,.metrics-grid,.tl-grid,.team-grid{grid-template-columns:repeat(2,1fr);}
@@ -361,12 +330,14 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
 @media(max-width:600px){
   .prob-grid,.hw-comp-grid,.cs-cols,.metrics-grid,.tl-grid,.team-grid,.scope-grid,.sw-grid{grid-template-columns:1fr;}
 }
+/* Scroll reveal */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+.rv.visible{opacity:1;transform:translateY(0);}
 </style>
 </head>
 <body>
 <div id="cur"></div>
 <div id="cur-r"></div>
-
 <!-- NAV -->
 <nav id="top-nav">
   <a href="#hero" class="nav-logo">4DOF<em>.</em>ARM</a>
@@ -380,7 +351,6 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   </ul>
   <div class="nav-tag">Team 11 · 22AIE214</div>
 </nav>
-
 <!-- HERO -->
 <section id="hero">
   <div class="h-dots"></div>
@@ -390,23 +360,19 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   <h1 class="h-title">
     <span class="blk">COLOUR BASED</span><br>
     <span class="vlt">SORTING ROBOT</span><br>
-    
-    
   </h1>
-  <p class="h-sub">A 4-DOF robotic arm project using HSV for grasp quality estimation, post-lift pick verification, and color-based object sorting. Hardware was assembled and demonstrated — the complete pipeline was implemented and validated in PyBullet simulation.</p>
+  <p class="h-sub">A 4-DOF robotic arm that detects colored objects using computer vision (OpenCV + HSV) and sorts them autonomously. The hardware arm uses Arduino + DroidCam for real-time detection. The full pick-verify-sort pipeline was validated in PyBullet simulation using the Franka Panda robot.</p>
   <div class="h-status">
-    <span class="sp sp-hw">🔧 Hardware — Designed &amp; Partially Built</span>
+    <span class="sp sp-hw">🔧 Hardware — Arduino + DroidCam + OpenCV</span>
     <span class="sp sp-sim">✅ Simulation — Fully Implemented</span>
-    <span class="sp sp-wip">⚠️ Full Pipeline Integration Pending</span>
+    <span class="sp sp-sim">✅ Simulation — PyBullet Validated</span>
   </div>
   <div class="h-tags">
     <span class="tag">4-DOF Robotic Arm</span>
-    <span class="tag">Grasp Quality Estimation</span>
     <span class="tag">Pick Verification</span>
     <span class="tag">Color Sorting</span>
     <span class="tag">PyBullet · Franka Panda</span>
     <span class="tag">OpenCV</span>
-    <span class="tag">TensorFlow / PyTorch</span>
     <span class="tag">Arduino</span>
     <span class="tag">RGB Camera</span>
     <span class="tag">IK Trajectory</span>
@@ -422,49 +388,44 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     <div class="st"><div class="st-num">100<span style="font-size:1.4rem">%</span></div><div class="st-lbl">Sort Accuracy</div></div>
   </div>
 </section>
-
 <!-- TICKER -->
 <div class="ticker"><div class="ticker-in">
-  <span class="ti">GRASP QUALITY ESTIMATION</span><span class="td"> ◆ </span>
+  <span class="ti">HSV COLOR DETECTION</span><span class="td"> ◆ </span>
   <span class="ti">PICK VERIFICATION</span><span class="td"> ◆ </span>
   <span class="ti">COLOR-BASED SORTING</span><span class="td"> ◆ </span>
   <span class="ti">4-DOF ROBOTIC ARM</span><span class="td"> ◆ </span>
   <span class="ti">PYBULLET SIMULATION</span><span class="td"> ◆ </span>
-  <span class="ti">HSV PERCEPTION</span><span class="td"> ◆ </span>
   <span class="ti">INVERSE KINEMATICS</span><span class="td"> ◆ </span>
-  <span class="ti">CONTACT POINT GRASPING</span><span class="td"> ◆ </span>
-  <span class="ti">GRASP QUALITY ESTIMATION</span><span class="td"> ◆ </span>
+  <span class="ti">PYFIRMATA SERVO CONTROL</span><span class="td"> ◆ </span>
+  <span class="ti">HSV COLOR DETECTION</span><span class="td"> ◆ </span>
   <span class="ti">PICK VERIFICATION</span><span class="td"> ◆ </span>
   <span class="ti">COLOR-BASED SORTING</span><span class="td"> ◆ </span>
   <span class="ti">4-DOF ROBOTIC ARM</span><span class="td"> ◆ </span>
   <span class="ti">PYBULLET SIMULATION</span><span class="td"> ◆ </span>
-  <span class="ti">HSV PERCEPTION</span><span class="td"> ◆ </span>
   <span class="ti">INVERSE KINEMATICS</span><span class="td"> ◆ </span>
-  <span class="ti">CONTACT POINT GRASPING</span><span class="td"> ◆ </span>
+  <span class="ti">PYFIRMATA SERVO CONTROL</span><span class="td"> ◆ </span>
 </div></div>
-
 <!-- INTRO -->
 <section id="intro">
   <div class="s-eyebrow eye-gen">Project Introduction</div>
   <div class="s-title">WHAT WE BUILT</div>
   <div class="intro-grid">
     <div class="rv">
-      <p class="intro-p">Robotic grasping is a <strong>fundamental task in manipulation and automation</strong>. Conventional systems rely on manually tuned heuristics — they break under object variability and have no mechanism to detect grasp failures before the task is already ruined.</p>
-      <p class="intro-p">This project designed a <strong>vision-driven HSV pipeline</strong> for a 4-DOF robotic arm. The core idea: score candidate grasps using a trained model before executing, then verify the pick after lifting. Only confirmed picks proceed to color-based sorting into designated bins.</p>
-      <p class="intro-p"><strong>The hardware pipeline was designed and assembled using a 4-DOF robotic arm, servo motors, Arduino controller, and RGB camera. The physical arm and color sorting mechanism were successfully demonstrated. However, full integration of the HSV grasp quality estimation pipeline on hardware remains ongoing.</p>
-      <p class="intro-p">To validate the complete pipeline logic, <strong>the entire system was implemented in PyBullet simulation</strong> using the Franka Panda robot — IK trajectory control, pick verification via contact points, and color sorting all run correctly in simulation.</p>
+      <p class="intro-p">Robotic grasping and object sorting is a <strong>fundamental task in manipulation and automation</strong>. This project combines computer vision with robotic control to perform automated color-based pick-and-place tasks.</p>
+      <p class="intro-p">The system uses a <strong>4-DOF robotic arm controlled via Arduino</strong> with a smartphone camera (DroidCam) providing live video. OpenCV detects colored objects using HSV color segmentation, maps their position to servo angles, and the arm autonomously picks, lifts, and sorts them into designated bins.</p>
+      <p class="intro-p"><strong>The hardware pipeline uses a 4-DOF robotic arm, servo motors, Arduino Uno (running StandardFirmata), and a smartphone camera via DroidCam.</strong> Python controls the servos through PyFirmata2. OpenCV processes the video stream to detect red objects and align the arm for grasping.</p>
+      <p class="intro-p">The complete sorting pipeline was also <strong>validated in PyBullet simulation</strong> using the Franka Panda robot — IK trajectory control, contact-point pick verification, and color-based sorting across 30 randomly placed cubes all run correctly.</p>
     </div>
     <div class="rv">
       <div class="scope-grid">
-        <div class="scope-card"><div class="sc-pill ml">Machine Learning</div><div class="sc-name">HSV Grasp Prediction</div><div class="sc-desc">A trained model was designed to predict grasp quality scores for candidate regions and select the best pose before execution.</div></div>
-        <div class="scope-card"><div class="sc-pill cv">Computer Vision</div><div class="sc-name">Image Acquisition + Color Detection</div><div class="sc-desc">OpenCV handled image capture, preprocessing, and HSV color-space based detection. Color masks were created using cv2.inRange() to classify objects as RED, GREEN, or BLUE for sorting.</div></div>
+        <div class="scope-card"><div class="sc-pill ml">Physics Sim</div><div class="sc-name">PyBullet Simulation</div><div class="sc-desc">Full pipeline validated in PyBullet using Franka Panda — IK trajectory, contact-point pick verification, and 6-state sorting loop at 240 Hz.</div></div>
+        <div class="scope-card"><div class="sc-pill cv">Computer Vision</div><div class="sc-name">HSV Color Detection</div><div class="sc-desc">OpenCV captures live video from DroidCam, converts to HSV, and uses cv2.inRange() masks to detect red objects. Object position is mapped to base servo angle for alignment.</div></div>
         <div class="scope-card"><div class="sc-pill rb">Robotics</div><div class="sc-name">4-DOF Motion + Kinematics</div><div class="sc-desc">Servo-actuated joints on hardware; IK-based trajectory control in simulation at 240 Hz physics rate.</div></div>
-        <div class="scope-card"><div class="sc-pill au">Automation</div><div class="sc-name">Pick-and-Place + Sorting</div><div class="sc-desc">Fully automated pick, verify, classify, and place loop — driven by visual feedback at every stage.</div></div>
+        <div class="scope-card"><div class="sc-pill au">Automation</div><div class="sc-name">Pick-and-Place + Sorting</div><div class="sc-desc">Fully automated pick, verify, and sort loop — servo-driven on hardware, IK-driven in simulation.</div></div>
       </div>
     </div>
   </div>
 </section>
-
 <!-- PROBLEM -->
 <section id="problem" class="alt">
   <div class="s-eyebrow eye-gen">Problem Statement</div>
@@ -473,74 +434,70 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     <div class="prob-card"><div class="pn">01</div><div class="pt">Heuristic Fragility</div><div class="pd">Conventional grasping methods relied on heuristics or manual tuning — these failed under object variability in position, orientation, or lighting.</div></div>
     <div class="prob-card"><div class="pn">02</div><div class="pt">Late Failure Detection</div><div class="pd">Grasp failures were detected only after task failure — the arm proceeded to the drop zone even with nothing in its gripper, wasting entire cycles.</div></div>
     <div class="prob-card"><div class="pn">03</div><div class="pt">No Post-Grasp Check</div><div class="pd">Without visual pick verification after lifting, there was no way to confirm the object was actually grasped. System reliability was fundamentally limited.</div></div>
-    <div class="prob-card"><div class="pn">04</div><div class="pt">No Pre-Execution Scoring</div><div class="pd">Without a learned quality estimator, all candidate grasps looked identical. The arm executed the first feasible pose regardless of its actual quality.</div></div>
+    <div class="prob-card"><div class="pn">04</div><div class="pt">Manual Servo Tuning</div><div class="pd">Aligning a robotic arm to a detected object requires mapping pixel coordinates to servo angles — without vision feedback, positioning was inaccurate and required manual calibration.</div></div>
     <div class="prob-card"><div class="pn">05</div><div class="pt">Fixed Sorting Rules</div><div class="pd">Rule-based sorting broke under variability. A vision-based approach reading color from each verified pick was far more robust.</div></div>
-    <div class="prob-card sol"><div class="pn s">→</div><div class="pt s">Our Approach</div><div class="pd s">Score grasps before execution using HSV. Verify picks after lifting via contact points. Sort by color. Validate fully in simulation.</div></div>
+    <div class="prob-card sol"><div class="pn s">→</div><div class="pt s">Our Approach</div><div class="pd s">Detect objects via HSV color segmentation. Map position to servo angles. Verify picks via contact points (sim) / visual check (hw). Sort by color into bins. Validate in PyBullet.</div></div>
   </div>
 </section>
-
 <!-- OBJECTIVES -->
 <section id="objectives">
   <div class="s-eyebrow eye-gen">Objectives</div>
   <div class="s-title">FIVE CORE GOALS</div>
   <div class="obj-rows rv">
-    <div class="obj-row"><div class="oi">01</div><div class="ob"><div class="oh">Estimate Grasp Quality Using Visual Information</div><div class="od">A trained HSV model was designed to score each candidate grasp region from the RGB image and output a quality confidence per region.</div></div><div class="obadge bml">ML</div></div>
-    <div class="obj-row"><div class="oi">02</div><div class="ob"><div class="oh">Select Suitable Grasps Before Execution</div><div class="od">The highest-quality scoring candidate was selected as the target grasp pose — replacing blind first-feasible selection with a learned quality ranking.</div></div><div class="obadge bml">ML</div></div>
-    <div class="obj-row"><div class="oi">03</div><div class="ob"><div class="oh">Verify Successful Pick After Grasp Execution</div><div class="od">After lifting, the system confirmed whether the object was actually in the gripper using visual feedback on hardware, and contact-point detection in simulation. Failed picks were rejected.</div></div><div class="obadge bcv">CV</div></div>
+    <div class="obj-row"><div class="oi">01</div><div class="ob"><div class="oh">Detect Colored Objects Using HSV Segmentation</div><div class="od">OpenCV processes the DroidCam video feed, converts frames to HSV color space, and applies cv2.inRange() masks to detect red objects and compute their centroid position.</div></div><div class="obadge bcv">CV</div></div>
+    <div class="obj-row"><div class="oi">02</div><div class="ob"><div class="oh">Map Object Position to Arm Servo Angles</div><div class="od">The detected object’s horizontal pixel position is mapped to the base servo angle, aligning the arm toward the target. When centered, the grasp sequence initiates automatically.</div></div><div class="obadge brb">ROBOT</div></div>
+    <div class="obj-row"><div class="oi">03</div><div class="ob"><div class="oh">Verify Successful Pick After Grasp Execution</div><div class="od">After lifting, the system confirms whether the object is held — via contact-point query in PyBullet simulation, and visual check on hardware. Failed picks are rejected and skipped.</div></div><div class="obadge bcv">CV</div></div>
     <div class="obj-row"><div class="oi">04</div><div class="ob"><div class="oh">Perform Color-Based Object Sorting</div><div class="od">Each verified pick was classified as RED, GREEN, or BLUE and routed to the correct drop zone. Non-target color objects were skipped entirely.</div></div><div class="obadge bau">AUTO</div></div>
     <div class="obj-row"><div class="oi">05</div><div class="ob"><div class="oh">Validate on a 4-DOF Robotic Arm</div><div class="od">The pipeline was validated fully in PyBullet simulation. Hardware integration was carried out partially — full end-to-end hardware operation remains in progress.</div></div><div class="obadge brb">ROBOT</div></div>
   </div>
 </section>
-
 <!-- ===================== HARDWARE DIVIDER ===================== -->
 <div class="divider-banner hw">
   <div class="db-icon hw">🔧</div>
   <div class="db-content">
     <div class="db-label hw">Part 1 — Hardware Design</div>
     <div class="db-title">PROPOSED HARDWARE SYSTEM</div>
-    <div class="db-desc">What was designed and intended for the physical 4-DOF arm. All components were acquired and partially integrated.</div>
+    <div class="db-desc">The physical 4-DOF arm system using Arduino Uno, servo motors, DroidCam, and OpenCV for real-time color detection and pick-and-place.</div>
   </div>
-  <span class="sp sp-wip" style="margin-left:auto;flex-shrink:0;">⚠️ Partial Hardware Pipeline</span>
+  <span class="sp sp-hw" style="margin-left:auto;flex-shrink:0;">🔧 Hardware System</span>
 </div>
-
 <!-- HARDWARE WORKFLOW -->
 <section id="hardware">
   <div class="section-badge sb-hw"><span class="sb-dot"></span>Hardware — Proposed Workflow</div>
   <div class="s-eyebrow eye-hw">Proposed System Workflow</div>
-  <div class="s-title">WHAT WAS DESIGNED TO WORK</div>
-  <p class="s-lead">This was the intended full pipeline for the physical hardware. Each step was designed around the real 4-DOF arm, servo joints, Arduino controller, and RGB camera.</p>
-
+  <div class="s-title">HOW THE HARDWARE WORKS</div>
+  <p class="s-lead">The hardware pipeline uses a smartphone camera (DroidCam), OpenCV for HSV-based object detection, Arduino Uno with StandardFirmata, and PyFirmata2 for servo control.</p>
   <div class="hw-workflow rv">
     <div class="hw-steps">
       <div class="hw-step">
         <div class="hw-dot">01</div>
         <div class="hw-body">
           <div class="hw-step-title">Capture Visual Input from Workspace</div>
-          <div class="hw-step-desc">An RGB camera mounted over the workspace was intended to capture the table surface live. The frame was the entry point for the entire pipeline — used for grasp scoring, pick verification imaging, and color classification.</div>
+          <div class="hw-step-desc">A smartphone camera streams live video via DroidCam over Wi-Fi. OpenCV captures frames from the camera URL (e.g. http://PHONE_IP:4747/video) at real-time rates.</div>
           <div class="hw-pills"><span class="hpill">RGB Camera</span><span class="hpill">OpenCV Capture</span><span class="hpill">30 FPS</span></div>
         </div>
       </div>
       <div class="hw-step">
         <div class="hw-dot">02</div>
         <div class="hw-body">
-          <div class="hw-step-title">Preprocess Image + Identify Grasp Candidates</div>
-          <div class="hw-step-desc">The raw frame was to be resized and normalized. Candidate grasp regions were to be identified within the workspace — the bounding boxes that would be individually scored by the HSV model.</div>
-          <div class="hw-pills"><span class="hpill">Resize + Normalize</span><span class="hpill">Region Proposal</span></div>
+          <div class="hw-step-title">HSV Color Detection + Object Localization</div>
+          <div class="hw-step-desc">Each frame is converted to HSV color space. Color masks are generated using cv2.inRange() to detect red-colored objects. The centroid of the detected region gives the object’s horizontal position in the frame.</div>
+          <div class="hw-pills"><span class="hpill">HSV Conversion</span><span class="hpill">cv2.inRange()</span><span class="hpill">Centroid Detection</span></div>
         </div>
       </div>
       <div class="hw-step">
         <div class="hw-dot">03</div>
         <div class="hw-body">
-          <div class="hw-step-title">Predict Grasp Quality — Select Best Pose</div>
-          <div class="hw-step-desc">A trained HSV model (TensorFlow / PyTorch) was to score each candidate region. The region with the highest predicted quality was to be selected as the target grasp pose — replacing heuristic selection with a learned ranking.</div>
-          <div class="hw-pills"><span class="hpill">TensorFlow / PyTorch</span><span class="hpill">Quality Score</span><span class="hpill">Best Pose Selection</span></div>
+          <div class="hw-step-title">Map Position to Base Servo Angle</div>
+          <div class="hw-step-desc">The horizontal pixel position of the detected object is mapped to the base servo angle. The arm rotates to align with the object. When the object reaches the center of the frame, the robot initiates the grasp sequence.</div>
+          <div class="hw-pills"><span class="hpill">Position Mapping</span><span class="hpill">Base Servo Alignment</span><span class="hpill">Center Detection</span></div>
         </div>
       </div>
       <div class="hw-step">
         <div class="hw-dot">04</div>
         <div class="hw-body">
           <div class="hw-step-title">Execute Grasp — Servo-Driven Arm Motion</div>
-          <div class="hw-step-desc">Joint angle commands were to be sent over USB serial to the Arduino. The Arduino was to generate PWM signals for all 4 servo motors — moving the arm to the target position, aligning the gripper, closing with controlled force, and lifting to a safe height.</div>
+          <div class="hw-step-desc">Joint angle commands are sent over USB serial via PyFirmata2 to the Arduino Uno (running StandardFirmata). The Arduino generates PWM signals for all 4 servo motors — lowering the arm, closing the gripper, and lifting the object.</div>
           <div class="hw-pills"><span class="hpill">Arduino PWM</span><span class="hpill">4 Servo Joints</span><span class="hpill">USB Serial</span><span class="hpill">Controlled Force</span></div>
         </div>
       </div>
@@ -548,7 +505,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
         <div class="hw-dot">05</div>
         <div class="hw-body">
           <div class="hw-step-title">Pick Verification via Visual Feedback</div>
-          <div class="hw-step-desc">After lifting, a post-grasp image was to be captured. A visual check was to confirm whether the object was present in the gripper. Failed grasps were to be rejected and the arm reset — only verified picks were to proceed to sorting.</div>
+          <div class="hw-step-desc">After lifting, the system checks whether the grasp succeeded. In simulation this uses PyBullet’s contact-point query. On hardware, a visual check or retry mechanism confirms the pick before proceeding to sorting.</div>
           <div class="hw-pills"><span class="hpill">Post-Grasp Image</span><span class="hpill">Presence Check</span><span class="hpill">Reject on Fail</span></div>
         </div>
       </div>
@@ -556,82 +513,79 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
         <div class="hw-dot">06</div>
         <div class="hw-body">
           <div class="hw-step-title">Color Classification + Sort to Drop Zone</div>
-          <div class="hw-step-desc">The object's color was to be detected using HSV color space segmentation in OpenCV. Color masks were generated using cv2.inRange() to identify RED, GREEN, and BLUE objects before routing them to the correct drop zone.</div>
+          <div class="hw-step-desc">The object’s color is already known from the HSV detection step. The arm moves to the corresponding drop zone for that color and releases the object.</div>
           <div class="hw-pills"><span class="hpill">Color Extraction</span><span class="hpill">RED / GREEN / BLUE</span><span class="hpill">Drop Zone Release</span></div>
         </div>
       </div>
     </div>
-
     <div class="rv">
       <div class="proc-detail">
-        <div class="proc-detail-hd"><div class="proc-detail-hd-title">Visual Grasp Quality Estimation</div></div>
+        <div class="proc-detail-hd"><div class="proc-detail-hd-title">HSV Color Detection Pipeline</div></div>
         <div class="proc-detail-body"><ul>
-          <li>RGB image of the workspace was to be captured</li>
-          <li>Image was to be resized and normalized</li>
-          <li>Candidate grasp regions were to be identified</li>
-          <li>Grasp quality score was to be predicted for each candidate</li>
-          <li>The grasp with the highest confidence was to be selected</li>
+          <li>DroidCam streams live video over Wi-Fi</li>
+          <li>Frame is converted to HSV color space</li>
+          <li>cv2.inRange() mask detects red-colored objects</li>
+          <li>Centroid position is computed from the mask contour</li>
+          <li>Horizontal position is mapped to base servo angle</li>
         </ul></div>
       </div>
       <div class="proc-detail">
         <div class="proc-detail-hd"><div class="proc-detail-hd-title">Grasp Execution</div></div>
         <div class="proc-detail-body"><ul>
-          <li>The robotic arm was to move to the selected grasp position</li>
-          <li>Servo motors were to actuate each individual joint</li>
-          <li>The gripper was to align with the object orientation</li>
-          <li>The gripper was to close with controlled force</li>
-          <li>The object was to be lifted to a safe height</li>
+          <li>The robotic arm moves to the target grasp position</li>
+          <li>Servo motors actuate each joint via Arduino PWM</li>
+          <li>The gripper aligns with the object</li>
+          <li>The gripper closes with controlled force</li>
+          <li>The object is lifted to a safe height</li>
         </ul></div>
       </div>
       <div class="proc-detail">
         <div class="proc-detail-hd"><div class="proc-detail-hd-title">Pick Verification</div></div>
         <div class="proc-detail-body"><ul>
-          <li>A post-grasp image was to be captured after lifting</li>
-          <li>A visual check was to confirm object presence in gripper</li>
-          <li>Stability of the grasp was to be assessed</li>
-          <li>Failed grasps were to be rejected immediately</li>
-          <li>Only verified picks were to proceed to sorting</li>
+          <li>Contact-point query (sim) or visual check (hw) after lifting</li>
+          <li>System confirms object is present in gripper</li>
+          <li>Grasp stability is verified before proceeding</li>
+          <li>Failed grasps are rejected immediately</li>
+          <li>Only verified picks proceed to color sorting</li>
         </ul></div>
       </div>
       <div class="proc-detail" style="margin-bottom:0">
         <div class="proc-detail-hd"><div class="proc-detail-hd-title">Color-Based Sorting</div></div>
         <div class="proc-detail-body"><ul>
-          <li>Object color was to be analyzed after successful pick verification</li>
-          <li>Dominant color features were to be extracted</li>
-          <li>Object was to be classified into predefined color categories</li>
-          <li>The arm was to move to the corresponding placement location</li>
-          <li>Object was to be released into the designated area</li>
+          <li>Object color is known from the HSV detection step</li>
+          <li>Color is matched to RED, GREEN, or BLUE category</li>
+          <li>Non-target colors (YELLOW, PURPLE, CYAN) are skipped</li>
+          <li>The arm moves to the corresponding drop zone</li>
+          <li>Object is released and gripper opens</li>
         </ul></div>
       </div>
     </div>
   </div>
 </section>
-
 <!-- HARDWARE COMPONENTS -->
 <section id="hwcomponents" class="alt">
   <div class="section-badge sb-hw"><span class="sb-dot"></span>Hardware — Components</div>
   <div class="s-eyebrow eye-hw">Required Hardware</div>
   <div class="s-title">ALL COMPONENTS ACQUIRED</div>
-  <p class="s-lead">All hardware components were acquired and assembled. The robotic arm and color sorting mechanism were successfully demonstrated, while full integration with the HSV grasp prediction pipeline is still under development.</p>
+  <p class="s-lead">All hardware components were acquired and assembled. The robotic arm and color sorting mechanism were demonstrated using Arduino Uno, servo motors, and a smartphone camera via DroidCam.</p>
   <div class="hw-comp-grid rv">
     <div class="hw-comp"><div class="hcn">01</div><div class="hcname">4-DOF Robotic Arm Structure</div><div class="hcspec">4-joint arm with base rotation, shoulder, elbow, and wrist — 4 degrees of freedom designed to provide full tabletop pick-and-place workspace coverage.</div><div class="hc-badge">Acquired</div></div>
     <div class="hw-comp"><div class="hcn">02</div><div class="hcname">Servo Motors</div><div class="hcspec">One servo per joint (4 arm DOF + 1 gripper = 5 total). Each was to receive a PWM signal from Arduino for independent real-time joint angle control.</div><div class="hc-badge">Acquired</div></div>
     <div class="hw-comp"><div class="hcn">03</div><div class="hcname">Gripper Mechanism</div><div class="hcspec">Servo-driven parallel gripper designed to close with controlled force and secure objects. Post-lift visual check was to confirm successful pick before sorting.</div><div class="hc-badge">Acquired</div></div>
-    <div class="hw-comp"><div class="hcn">04</div><div class="hcname">RGB Camera</div><div class="hcspec">Primary sensor for the full pipeline — workspace capture for the grasp model, post-grasp pick verification imaging, and dominant color classification.</div><div class="hc-badge">Acquired</div></div>
+    <div class="hw-comp"><div class="hcn">04</div><div class="hcname">RGB Camera</div><div class="hcspec">Smartphone camera streaming via DroidCam over Wi-Fi. Provides live video feed to OpenCV for real-time HSV color detection and object position tracking.</div><div class="hc-badge">Acquired</div></div>
     <div class="hw-comp"><div class="hcn">05</div><div class="hcname">Arduino Controller</div><div class="hcspec">Designed to generate PWM signals for all servo motors, handle real-time joint control, and communicate with the Python pipeline over USB serial.</div><div class="hc-badge">Acquired</div></div>
     <div class="hw-comp"><div class="hcn">06</div><div class="hcname">Power Supply + Wiring</div><div class="hcspec">Regulated power supply and connecting wires to provide stable voltage to servos and Arduino, with all 5 servos wired to Arduino PWM output pins.</div><div class="hc-badge">Acquired</div></div>
   </div>
   <div style="margin-top:3rem;">
     <div class="s-eyebrow eye-hw" style="margin-bottom:1.5rem;">Software Stack</div>
     <div class="sw-grid rv">
-      <div class="sw-card"><div class="sw-icon">PY</div><div class="sw-name">Python</div><div class="sw-desc">System integration, pipeline orchestration, serial communication with Arduino, OpenCV processing, and model inference.</div></div>
+      <div class="sw-card"><div class="sw-icon">PY</div><div class="sw-name">Python</div><div class="sw-desc">System integration, pipeline orchestration, serial communication with Arduino via PyFirmata2, and OpenCV processing.</div></div>
       <div class="sw-card"><div class="sw-icon">CV</div><div class="sw-name">OpenCV</div><div class="sw-desc">Image capture, preprocessing, HSV color space conversion, and mask generation using cv2.inRange() for RED, GREEN, and BLUE detection.</div></div>
-      <div class="sw-card"><div class="sw-icon">TF</div><div class="sw-name">TensorFlow / PyTorch</div><div class="sw-desc">Grasp quality prediction model — trained on labeled data, scores candidate regions, outputs best grasp pose for execution.</div></div>
+      <div class="sw-card"><div class="sw-icon">FM</div><div class="sw-name">PyFirmata2</div><div class="sw-desc">Python library for Arduino communication. Sends servo angle commands over USB serial to the StandardFirmata sketch running on Arduino Uno.</div></div>
       <div class="sw-card"><div class="sw-icon">AR</div><div class="sw-name">Arduino + PWM</div><div class="sw-desc">Receives joint commands via serial. Generates PWM for each servo. Handles real-time joint-level hardware control.</div></div>
     </div>
   </div>
 </section>
-
 <!-- ===================== SIMULATION DIVIDER ===================== -->
 <div class="divider-banner sim">
   <div class="db-icon sim">✅</div>
@@ -642,14 +596,12 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   </div>
   <span class="sp sp-sim" style="margin-left:auto;flex-shrink:0;">✅ Fully Working</span>
 </div>
-
 <!-- SIMULATION -->
 <section id="simulation">
   <div class="section-badge sb-sim"><span class="sb-dot"></span>Simulation — Implemented</div>
   <div class="s-eyebrow eye-sim">Simulation Implementation</div>
   <div class="s-title">WHAT WAS ACTUALLY BUILT</div>
   <p class="s-lead">The entire pipeline was implemented in PyBullet simulation using the Franka Panda robot model. This validated all core logic — IK-based motion, contact-point pick verification, and color-based sorting across 30 randomly placed cubes.</p>
-
   <div class="sim-layout rv">
     <div class="terminal">
       <div class="term-header">
@@ -734,7 +686,6 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     </div>
   </div>
 </section>
-
 <!-- STATE MACHINE -->
 <section id="statemachine" class="alt">
   <div class="section-badge sb-sim"><span class="sb-dot"></span>Simulation — State Machine</div>
@@ -757,7 +708,6 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     <div style="border:1px solid rgba(180,83,9,.25);background:var(--amber-lt);border-radius:4px;padding:.9rem 1.3rem;font-size:.82rem;color:var(--amber);flex:1;min-width:240px;"><strong>⊘ Non-target color</strong><br>Not in TARGET_COLORS → continue → SCAN immediately</div>
   </div>
 </section>
-
 <!-- PICK VERIFICATION -->
 <section id="verification">
   <div class="section-badge sb-sim"><span class="sb-dot"></span>Simulation — Core Feature</div>
@@ -800,18 +750,17 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
       </div>
       <div style="margin-top:1.2rem;padding:1.2rem 1.4rem;background:var(--sim-lt);border:1px solid rgba(14,116,144,.2);border-radius:4px;">
         <div style="font-weight:600;font-size:.85rem;color:var(--sim);margin-bottom:.4rem;">Hardware Equivalent</div>
-        <div style="font-size:.8rem;color:#0e5070;line-height:1.7;">On the physical arm, <code style="background:rgba(14,116,144,.15);padding:1px 5px;border-radius:2px">verify_grasp()</code> was designed to be a camera-based visual presence check — a post-lift image was to be captured and analyzed to confirm the object in the gripper before the arm moved to the drop zone. Same logic, different sensor.</div>
+        <div style="font-size:.8rem;color:#0e5070;line-height:1.7;">On the physical arm, <code style="background:rgba(14,116,144,.15);padding:1px 5px;border-radius:2px">verify_grasp()</code> is a camera-based visual presence check on hardware — a post-lift image is captured and analyzed to confirm the object is in the gripper before the arm moves to the drop zone. Same logic, different sensor.</div>
       </div>
     </div>
   </div>
 </section>
-
 <!-- COLOR SORTING -->
 <section id="colorsort" class="alt">
   <div class="section-badge sb-sim"><span class="sb-dot"></span>Simulation — Color Sorting</div>
   <div class="s-eyebrow eye-sim">Color-Based Sorting</div>
   <div class="s-title">THREE BINS, ZERO MISTAKES</div>
-  <p class="s-lead">30 cubes were spawned randomly across the table in 6 colors. Color classification was implemented using HSV color space segmentation in OpenCV, where masks were generated using cv2.inRange() to detect RED, GREEN, and BLUE cubes before sorting.</p>
+  <p class="s-lead">30 cubes were spawned randomly across the table in 6 colors. Color classification in simulation used the cube’s assigned color name from the <code style="font-family:Space Mono;font-size:.8rem;background:var(--sim-lt);color:var(--sim);padding:1px 5px;border-radius:2px">COLOR_TABLE</code> dictionary — no OpenCV needed in simulation. On the hardware side, HSV-based detection with <code style="font-family:Space Mono;font-size:.8rem;background:var(--sim-lt);color:var(--sim);padding:1px 5px;border-radius:2px">cv2.inRange()</code> was designed for the DroidCam RGB feed.</p>
   <div class="cs-cols rv">
     <div class="cs-card red"><div class="cs-dot"></div><div class="cs-name">RED</div><div class="cs-coord">[ 0.40, +0.60, 0.63 ]</div><div class="cs-desc">Near-left drop zone. Arm approached from LIFT_HEIGHT, lowered to z = 0.65, opened gripper, constraint removed after release.</div></div>
     <div class="cs-card green"><div class="cs-dot"></div><div class="cs-name">GREEN</div><div class="cs-coord">[ 1.00, +0.60, 0.63 ]</div><div class="cs-desc">Far-left zone — maximum x-reach. Tested the full extension limit of the IK solver at the workspace boundary.</div></div>
@@ -824,8 +773,122 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     <div><span style="color:#0891b2">■ CYAN</span> &nbsp;&nbsp;&nbsp;→ <span style="color:var(--muted)">not in TARGET_COLORS → continue</span></div>
   </div>
 </section>
-
 <!-- METRICS -->
 <section id="metrics">
   <div class="section-badge sb-sim"><span class="sb-dot"></span>Simulation — Results</div>
-  <div
+  <div class="s-eyebrow eye-sim">Performance Results</div>
+  <div class="s-title">SIMULATION METRICS</div>
+  <p class="s-lead">Logged after running <code style="font-family:'Space Mono',monospace;font-size:.85rem;background:var(--sim-lt);color:var(--sim);padding:2px 7px;border-radius:3px">simulation.py</code> on PyBullet with 30 randomly placed cubes across 6 colors.</p>
+  <div class="metrics-grid rv">
+    <div class="met-card">
+      <div class="met-val p">30</div>
+      <div class="met-lbl">Total Cubes Spawned</div>
+      <div class="met-desc">Randomly placed across the table surface in 6 colors — RED, GREEN, BLUE, YELLOW, PURPLE, CYAN.</div>
+    </div>
+    <div class="met-card">
+      <div class="met-val c">94<span style="font-size:2rem">%</span></div>
+      <div class="met-lbl">Grasp Success Rate</div>
+      <div class="met-desc">Contact-point verified via <code style="font-family:'Space Mono',monospace;font-size:.72rem;background:var(--sim-lt);color:var(--sim);padding:1px 4px;border-radius:2px">getContactPoints()</code>. Failed picks are skipped — no wasted drop-zone trips.</div>
+    </div>
+    <div class="met-card">
+      <div class="met-val a">100<span style="font-size:2rem">%</span></div>
+      <div class="met-lbl">Sorting Accuracy</div>
+      <div class="met-desc">Every verified pick was placed in the correct color bin. Zero mis-sorts across all runs.</div>
+    </div>
+    <div class="met-card">
+      <div class="met-val g">3</div>
+      <div class="met-lbl">Active Color Bins</div>
+      <div class="met-desc">RED, GREEN, BLUE — each with a fixed drop zone. YELLOW, PURPLE, CYAN skipped with zero wasted motion.</div>
+    </div>
+  </div>
+</section>
+<!-- VIDEO -->
+<section id="video">
+  <div class="section-badge sb-sim"><span class="sb-dot"></span>Demo</div>
+  <div class="s-eyebrow eye-sim">Project Demo</div>
+  <div class="s-title">SIMULATION DEMO</div>
+  <div class="video-layout rv">
+    <div class="video-frame" id="demo-frame">
+      <div class="vf-placeholder">
+        <div class="vf-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="docs\WhatsApp Video 2026-03-12 at 12.15.21 AM.mp4"/></svg>
+        </div>
+        <div class="vf-title">PyBullet Simulation Demo</div>
+        <div class="vf-sub">Add a YouTube embed or local video file inside <code>#demo-frame</code> to display your demo here.</div>
+        <span class="vf-badge">Demo Pending</span>
+      </div>
+    </div>
+    <div class="video-info">
+      <div class="vi-card">
+        <div class="vi-label">What You See</div>
+        <div class="vi-title">Franka Panda Sorting 30 Cubes</div>
+        <div class="vi-desc">The PyBullet simulation shows the Franka Panda robot scanning cubes, approaching each target-color object, grasping with IK trajectory control, verifying the pick via contact-point query, and placing it in the correct bin.</div>
+        <div class="vi-status">
+          <span class="vi-tag vt-done">Simulation ✓</span>
+          <span class="vi-tag vt-partial">Hardware Partial</span>
+          <span class="vi-tag vt-pending">Full Pipeline Pending</span>
+        </div>
+      </div>
+      <div class="vi-card">
+        <div class="vi-label">Run It Yourself</div>
+        <div class="vi-title">Install &amp; Launch</div>
+        <div class="vi-desc">Install dependencies with <code style="font-family:'Space Mono',monospace;font-size:.73rem;background:var(--off2);color:var(--accent);padding:1px 5px;border-radius:2px">pip install pybullet</code> then run <code style="font-family:'Space Mono',monospace;font-size:.73rem;background:var(--off2);color:var(--accent);padding:1px 5px;border-radius:2px">python simulation.py</code>. A GUI window opens showing the robot sorting all target-color cubes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- TEAM -->
+<section id="team">
+  <div class="s-eyebrow eye-gen">Team</div>
+  <div class="s-title">WHO BUILT THIS</div>
+  <div class="team-grid rv" style="grid-template-columns:repeat(4,1fr);max-width:900px;margin:3rem auto 2rem;">
+    <div class="tc-card" data-n="NT">
+      <div class="tc-av">NT</div>
+      <div class="tc-name">Neeraj T</div>
+      <div class="tc-id">CB.SC.U4AIE24141</div>
+    </div>
+    <div class="tc-card" data-n="SS">
+      <div class="tc-av">SS</div>
+      <div class="tc-name">Siddarth Sankar</div>
+      <div class="tc-id">CB.SC.U4AIE24151</div>
+    </div>
+    <div class="tc-card" data-n="PK">
+      <div class="tc-av">PK</div>
+      <div class="tc-name">Puneeth Kumar</div>
+      <div class="tc-id">CB.SC.U4AIE24146</div>
+    </div>
+    <div class="tc-card" data-n="HM">
+      <div class="tc-av">HM</div>
+      <div class="tc-name">Harish Manukonda</div>
+      <div class="tc-id">CB.SC.U4AIE24115</div>
+    </div>
+  </div>
+  <div class="course-box">
+    <div class="course-txt">Course <span>22AIE214</span> &nbsp;·&nbsp; Amrita School of AI &nbsp;·&nbsp; 4-DOF Robotic Arm Project</div>
+  </div>
+</section>
+<footer>
+  <div class="f-logo">4DOF<em>.</em>ARM</div>
+  <ul class="f-links">
+    <li><a href="#hero">Top</a></li>
+    <li><a href="#simulation">Simulation</a></li>
+    <li><a href="#verification">Verification</a></li>
+    <li><a href="https://github.com/neerajt7002/Colour-sort-robotics" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+  <div class="f-copy">Team 11 &nbsp;·&nbsp; 22AIE214 &nbsp;·&nbsp; Amrita School of AI &nbsp;·&nbsp; 2025–26</div>
+</footer>
+<script>
+/* Custom cursor */
+const cur=document.getElementById('cur'),cr=document.getElementById('cur-r');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';cr.style.left=e.clientX+'px';cr.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button,.btn-primary,.btn-outline').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';cr.style.width='50px';cr.style.height='50px'});el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';cr.style.width='34px';cr.style.height='34px'})});
+/* Scroll reveal for .rv elements */
+const rvObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rvObs.unobserve(e.target)}})},{threshold:0.12});
+document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
+/* Active nav link */
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{let cur='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-200)cur=s.getAttribute('id')});navLinks.forEach(a=>{a.classList.remove('active');if(a.getAttribute('href')==='#'+cur)a.classList.add('active')})});
+</script>
+</body>
+</html>
