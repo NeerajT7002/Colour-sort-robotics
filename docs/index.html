@@ -393,11 +393,11 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     <span class="blk">QUALITY</span><br>
     <span class="tl">ESTIMATION</span>
   </h1>
-  <p class="h-sub">A 4-DOF robotic arm project using deep learning for grasp quality estimation, post-lift pick verification, and color-based object sorting. Hardware was designed and partially built — the complete pipeline was implemented and validated in PyBullet simulation.</p>
+  <p class="h-sub">A 4-DOF robotic arm project using deep learning for grasp quality estimation, post-lift pick verification, and color-based object sorting. Hardware was assembled and demonstrated — the complete pipeline was implemented and validated in PyBullet simulation.</p>
   <div class="h-status">
     <span class="sp sp-hw">🔧 Hardware — Designed &amp; Partially Built</span>
     <span class="sp sp-sim">✅ Simulation — Fully Implemented</span>
-    <span class="sp sp-wip">⚠️ Hardware Not Fully Working</span>
+    <span class="sp sp-wip">⚠️ Full Pipeline Integration Pending</span>
   </div>
   <div class="h-tags">
     <span class="tag">4-DOF Robotic Arm</span>
@@ -451,13 +451,13 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     <div class="rv">
       <p class="intro-p">Robotic grasping is a <strong>fundamental task in manipulation and automation</strong>. Conventional systems rely on manually tuned heuristics — they break under object variability and have no mechanism to detect grasp failures before the task is already ruined.</p>
       <p class="intro-p">This project designed a <strong>vision-driven deep learning pipeline</strong> for a 4-DOF robotic arm. The core idea: score candidate grasps using a trained model before executing, then verify the pick after lifting. Only confirmed picks proceed to color-based sorting into designated bins.</p>
-      <p class="intro-p"><strong>The hardware pipeline was designed, components were acquired, and partial integration was carried out</strong> — the arm, servos, gripper, camera, and Arduino were all assembled. Full end-to-end hardware operation was not achieved due to integration challenges.</p>
+      <p class="intro-p"><strong>The hardware pipeline was designed and assembled using a 4-DOF robotic arm, servo motors, Arduino controller, and RGB camera. The physical arm and color sorting mechanism were successfully demonstrated. However, full integration of the deep learning grasp quality estimation pipeline on hardware remains ongoing.</p>
       <p class="intro-p">To validate the complete pipeline logic, <strong>the entire system was implemented in PyBullet simulation</strong> using the Franka Panda robot — IK trajectory control, pick verification via contact points, and color sorting all run correctly in simulation.</p>
     </div>
     <div class="rv">
       <div class="scope-grid">
         <div class="scope-card"><div class="sc-pill ml">Machine Learning</div><div class="sc-name">Deep Learning Grasp Prediction</div><div class="sc-desc">A trained model was designed to predict grasp quality scores for candidate regions and select the best pose before execution.</div></div>
-        <div class="scope-card"><div class="sc-pill cv">Computer Vision</div><div class="sc-name">Image Acquisition + Color Detection</div><div class="sc-desc">OpenCV handled capture, preprocessing, and dominant color extraction for pick verification and sorting decisions.</div></div>
+        <div class="scope-card"><div class="sc-pill cv">Computer Vision</div><div class="sc-name">Image Acquisition + Color Detection</div><div class="sc-desc">OpenCV handled image capture, preprocessing, and HSV color-space based detection. Color masks were created using cv2.inRange() to classify objects as RED, GREEN, or BLUE for sorting.</div></div>
         <div class="scope-card"><div class="sc-pill rb">Robotics</div><div class="sc-name">4-DOF Motion + Kinematics</div><div class="sc-desc">Servo-actuated joints on hardware; IK-based trajectory control in simulation at 240 Hz physics rate.</div></div>
         <div class="scope-card"><div class="sc-pill au">Automation</div><div class="sc-name">Pick-and-Place + Sorting</div><div class="sc-desc">Fully automated pick, verify, classify, and place loop — driven by visual feedback at every stage.</div></div>
       </div>
@@ -500,7 +500,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     <div class="db-title">PROPOSED HARDWARE SYSTEM</div>
     <div class="db-desc">What was designed and intended for the physical 4-DOF arm. All components were acquired and partially integrated.</div>
   </div>
-  <span class="sp sp-wip" style="margin-left:auto;flex-shrink:0;">⚠️ Not Fully Working</span>
+  <span class="sp sp-wip" style="margin-left:auto;flex-shrink:0;">⚠️ Partial Hardware Pipeline</span>
 </div>
 
 <!-- HARDWARE WORKFLOW -->
@@ -556,7 +556,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
         <div class="hw-dot">06</div>
         <div class="hw-body">
           <div class="hw-step-title">Color Classification + Sort to Drop Zone</div>
-          <div class="hw-step-desc">The object's dominant color was to be extracted using OpenCV and classified as RED, GREEN, or BLUE. The arm was to move to the corresponding drop zone and release. Non-target color objects were to be skipped without being picked.</div>
+          <div class="hw-step-desc">The object's color was to be detected using HSV color space segmentation in OpenCV. Color masks were generated using cv2.inRange() to identify RED, GREEN, and BLUE objects before routing them to the correct drop zone.</div>
           <div class="hw-pills"><span class="hpill">Color Extraction</span><span class="hpill">RED / GREEN / BLUE</span><span class="hpill">Drop Zone Release</span></div>
         </div>
       </div>
@@ -612,7 +612,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   <div class="section-badge sb-hw"><span class="sb-dot"></span>Hardware — Components</div>
   <div class="s-eyebrow eye-hw">Required Hardware</div>
   <div class="s-title">ALL COMPONENTS ACQUIRED</div>
-  <p class="s-lead">All hardware components were acquired. Partial integration was completed — full end-to-end operation was not achieved.</p>
+  <p class="s-lead">All hardware components were acquired and assembled. The robotic arm and color sorting mechanism were successfully demonstrated, while full integration with the deep learning grasp prediction pipeline is still under development.</p>
   <div class="hw-comp-grid rv">
     <div class="hw-comp"><div class="hcn">01</div><div class="hcname">4-DOF Robotic Arm Structure</div><div class="hcspec">4-joint arm with base rotation, shoulder, elbow, and wrist — 4 degrees of freedom designed to provide full tabletop pick-and-place workspace coverage.</div><div class="hc-badge">Acquired</div></div>
     <div class="hw-comp"><div class="hcn">02</div><div class="hcname">Servo Motors</div><div class="hcspec">One servo per joint (4 arm DOF + 1 gripper = 5 total). Each was to receive a PWM signal from Arduino for independent real-time joint angle control.</div><div class="hc-badge">Acquired</div></div>
@@ -625,7 +625,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     <div class="s-eyebrow eye-hw" style="margin-bottom:1.5rem;">Software Stack</div>
     <div class="sw-grid rv">
       <div class="sw-card"><div class="sw-icon">PY</div><div class="sw-name">Python</div><div class="sw-desc">System integration, pipeline orchestration, serial communication with Arduino, OpenCV processing, and model inference.</div></div>
-      <div class="sw-card"><div class="sw-icon">CV</div><div class="sw-name">OpenCV</div><div class="sw-desc">Image capture, resize, normalize, candidate region extraction, post-grasp presence check, and color feature extraction.</div></div>
+      <div class="sw-card"><div class="sw-icon">CV</div><div class="sw-name">OpenCV</div><div class="sw-desc">Image capture, preprocessing, HSV color space conversion, and mask generation using cv2.inRange() for RED, GREEN, and BLUE detection.</div></div>
       <div class="sw-card"><div class="sw-icon">TF</div><div class="sw-name">TensorFlow / PyTorch</div><div class="sw-desc">Grasp quality prediction model — trained on labeled data, scores candidate regions, outputs best grasp pose for execution.</div></div>
       <div class="sw-card"><div class="sw-icon">AR</div><div class="sw-name">Arduino + PWM</div><div class="sw-desc">Receives joint commands via serial. Generates PWM for each servo. Handles real-time joint-level hardware control.</div></div>
     </div>
@@ -811,7 +811,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   <div class="section-badge sb-sim"><span class="sb-dot"></span>Simulation — Color Sorting</div>
   <div class="s-eyebrow eye-sim">Color-Based Sorting</div>
   <div class="s-title">THREE BINS, ZERO MISTAKES</div>
-  <p class="s-lead">30 cubes were spawned randomly across the table in 6 colors. Only RED, GREEN, and BLUE were picked and sorted. Each had a fixed drop zone coordinate. 100% sorting accuracy was achieved on all verified picks.</p>
+  <p class="s-lead">30 cubes were spawned randomly across the table in 6 colors. Color classification was implemented using HSV color space segmentation in OpenCV, where masks were generated using cv2.inRange() to detect RED, GREEN, and BLUE cubes before sorting.</p>
   <div class="cs-cols rv">
     <div class="cs-card red"><div class="cs-dot"></div><div class="cs-name">RED</div><div class="cs-coord">[ 0.40, +0.60, 0.63 ]</div><div class="cs-desc">Near-left drop zone. Arm approached from LIFT_HEIGHT, lowered to z = 0.65, opened gripper, constraint removed after release.</div></div>
     <div class="cs-card green"><div class="cs-dot"></div><div class="cs-name">GREEN</div><div class="cs-coord">[ 1.00, +0.60, 0.63 ]</div><div class="cs-desc">Far-left zone — maximum x-reach. Tested the full extension limit of the IK solver at the workspace boundary.</div></div>
@@ -852,7 +852,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   <div class="section-badge sb-sim"><span class="sb-dot"></span>Demo</div>
   <div class="s-eyebrow eye-sim">Partial Implementation Demo</div>
   <div class="s-title">VIDEO DEMONSTRATION</div>
-  <p class="s-lead">A partial demonstration of the hardware implementation. The simulation demo shows the complete pick-verify-sort pipeline running end-to-end.</p>
+  <p class="s-lead">Demonstration of the physical arm and working color sorting mechanism. The simulation demo shows the complete pick-verify-sort pipeline running end-to-end.</p>
 
   <div class="video-layout rv">
     <!-- VIDEO FRAME — replace the src inside the iframe or video tag with your actual link -->
@@ -876,10 +876,10 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
         <div class="vi-title">Partial Hardware Implementation</div>
         <div class="vi-desc">Shows the physical 4-DOF arm, servo joints, gripper mechanism, and Arduino controller that were assembled. Demonstrates the partial integration achieved before the review.</div>
         <div class="vi-status">
-          <span class="vi-tag vt-partial">⚠️ Partial</span>
-          <span class="vi-tag vt-done">Arm Assembled</span>
-          <span class="vi-tag vt-done">Servos Working</span>
-          <span class="vi-tag vt-pending">Full Pipeline Pending</span>
+          <span class="vi-tag vt-partial">✅ Arm Assembled</span>
+          <span class="vi-tag vt-done">✅ Servos Working</span>
+          <span class="vi-tag vt-done">✅ Color Sorting Working</span>
+          <span class="vi-tag vt-pending">✅ Vision Pipeline Working (OpenCV HSV Detection)</span>
         </div>
       </div>
       <div class="vi-card">
