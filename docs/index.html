@@ -393,7 +393,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     
     
   </h1>
-  <p class="h-sub">A 4-DOF robotic arm project using deep learning for grasp quality estimation, post-lift pick verification, and color-based object sorting. Hardware was assembled and demonstrated — the complete pipeline was implemented and validated in PyBullet simulation.</p>
+  <p class="h-sub">A 4-DOF robotic arm project using HSV for grasp quality estimation, post-lift pick verification, and color-based object sorting. Hardware was assembled and demonstrated — the complete pipeline was implemented and validated in PyBullet simulation.</p>
   <div class="h-status">
     <span class="sp sp-hw">🔧 Hardware — Designed &amp; Partially Built</span>
     <span class="sp sp-sim">✅ Simulation — Fully Implemented</span>
@@ -430,7 +430,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   <span class="ti">COLOR-BASED SORTING</span><span class="td"> ◆ </span>
   <span class="ti">4-DOF ROBOTIC ARM</span><span class="td"> ◆ </span>
   <span class="ti">PYBULLET SIMULATION</span><span class="td"> ◆ </span>
-  <span class="ti">DEEP LEARNING PERCEPTION</span><span class="td"> ◆ </span>
+  <span class="ti">HSV PERCEPTION</span><span class="td"> ◆ </span>
   <span class="ti">INVERSE KINEMATICS</span><span class="td"> ◆ </span>
   <span class="ti">CONTACT POINT GRASPING</span><span class="td"> ◆ </span>
   <span class="ti">GRASP QUALITY ESTIMATION</span><span class="td"> ◆ </span>
@@ -438,7 +438,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   <span class="ti">COLOR-BASED SORTING</span><span class="td"> ◆ </span>
   <span class="ti">4-DOF ROBOTIC ARM</span><span class="td"> ◆ </span>
   <span class="ti">PYBULLET SIMULATION</span><span class="td"> ◆ </span>
-  <span class="ti">DEEP LEARNING PERCEPTION</span><span class="td"> ◆ </span>
+  <span class="ti">HSV PERCEPTION</span><span class="td"> ◆ </span>
   <span class="ti">INVERSE KINEMATICS</span><span class="td"> ◆ </span>
   <span class="ti">CONTACT POINT GRASPING</span><span class="td"> ◆ </span>
 </div></div>
@@ -450,13 +450,13 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   <div class="intro-grid">
     <div class="rv">
       <p class="intro-p">Robotic grasping is a <strong>fundamental task in manipulation and automation</strong>. Conventional systems rely on manually tuned heuristics — they break under object variability and have no mechanism to detect grasp failures before the task is already ruined.</p>
-      <p class="intro-p">This project designed a <strong>vision-driven deep learning pipeline</strong> for a 4-DOF robotic arm. The core idea: score candidate grasps using a trained model before executing, then verify the pick after lifting. Only confirmed picks proceed to color-based sorting into designated bins.</p>
-      <p class="intro-p"><strong>The hardware pipeline was designed and assembled using a 4-DOF robotic arm, servo motors, Arduino controller, and RGB camera. The physical arm and color sorting mechanism were successfully demonstrated. However, full integration of the deep learning grasp quality estimation pipeline on hardware remains ongoing.</p>
+      <p class="intro-p">This project designed a <strong>vision-driven HSV pipeline</strong> for a 4-DOF robotic arm. The core idea: score candidate grasps using a trained model before executing, then verify the pick after lifting. Only confirmed picks proceed to color-based sorting into designated bins.</p>
+      <p class="intro-p"><strong>The hardware pipeline was designed and assembled using a 4-DOF robotic arm, servo motors, Arduino controller, and RGB camera. The physical arm and color sorting mechanism were successfully demonstrated. However, full integration of the HSV grasp quality estimation pipeline on hardware remains ongoing.</p>
       <p class="intro-p">To validate the complete pipeline logic, <strong>the entire system was implemented in PyBullet simulation</strong> using the Franka Panda robot — IK trajectory control, pick verification via contact points, and color sorting all run correctly in simulation.</p>
     </div>
     <div class="rv">
       <div class="scope-grid">
-        <div class="scope-card"><div class="sc-pill ml">Machine Learning</div><div class="sc-name">Deep Learning Grasp Prediction</div><div class="sc-desc">A trained model was designed to predict grasp quality scores for candidate regions and select the best pose before execution.</div></div>
+        <div class="scope-card"><div class="sc-pill ml">Machine Learning</div><div class="sc-name">HSV Grasp Prediction</div><div class="sc-desc">A trained model was designed to predict grasp quality scores for candidate regions and select the best pose before execution.</div></div>
         <div class="scope-card"><div class="sc-pill cv">Computer Vision</div><div class="sc-name">Image Acquisition + Color Detection</div><div class="sc-desc">OpenCV handled image capture, preprocessing, and HSV color-space based detection. Color masks were created using cv2.inRange() to classify objects as RED, GREEN, or BLUE for sorting.</div></div>
         <div class="scope-card"><div class="sc-pill rb">Robotics</div><div class="sc-name">4-DOF Motion + Kinematics</div><div class="sc-desc">Servo-actuated joints on hardware; IK-based trajectory control in simulation at 240 Hz physics rate.</div></div>
         <div class="scope-card"><div class="sc-pill au">Automation</div><div class="sc-name">Pick-and-Place + Sorting</div><div class="sc-desc">Fully automated pick, verify, classify, and place loop — driven by visual feedback at every stage.</div></div>
@@ -475,7 +475,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
     <div class="prob-card"><div class="pn">03</div><div class="pt">No Post-Grasp Check</div><div class="pd">Without visual pick verification after lifting, there was no way to confirm the object was actually grasped. System reliability was fundamentally limited.</div></div>
     <div class="prob-card"><div class="pn">04</div><div class="pt">No Pre-Execution Scoring</div><div class="pd">Without a learned quality estimator, all candidate grasps looked identical. The arm executed the first feasible pose regardless of its actual quality.</div></div>
     <div class="prob-card"><div class="pn">05</div><div class="pt">Fixed Sorting Rules</div><div class="pd">Rule-based sorting broke under variability. A vision-based approach reading color from each verified pick was far more robust.</div></div>
-    <div class="prob-card sol"><div class="pn s">→</div><div class="pt s">Our Approach</div><div class="pd s">Score grasps before execution using deep learning. Verify picks after lifting via contact points. Sort by color. Validate fully in simulation.</div></div>
+    <div class="prob-card sol"><div class="pn s">→</div><div class="pt s">Our Approach</div><div class="pd s">Score grasps before execution using HSV. Verify picks after lifting via contact points. Sort by color. Validate fully in simulation.</div></div>
   </div>
 </section>
 
@@ -484,7 +484,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   <div class="s-eyebrow eye-gen">Objectives</div>
   <div class="s-title">FIVE CORE GOALS</div>
   <div class="obj-rows rv">
-    <div class="obj-row"><div class="oi">01</div><div class="ob"><div class="oh">Estimate Grasp Quality Using Visual Information</div><div class="od">A trained deep learning model was designed to score each candidate grasp region from the RGB image and output a quality confidence per region.</div></div><div class="obadge bml">ML</div></div>
+    <div class="obj-row"><div class="oi">01</div><div class="ob"><div class="oh">Estimate Grasp Quality Using Visual Information</div><div class="od">A trained HSV model was designed to score each candidate grasp region from the RGB image and output a quality confidence per region.</div></div><div class="obadge bml">ML</div></div>
     <div class="obj-row"><div class="oi">02</div><div class="ob"><div class="oh">Select Suitable Grasps Before Execution</div><div class="od">The highest-quality scoring candidate was selected as the target grasp pose — replacing blind first-feasible selection with a learned quality ranking.</div></div><div class="obadge bml">ML</div></div>
     <div class="obj-row"><div class="oi">03</div><div class="ob"><div class="oh">Verify Successful Pick After Grasp Execution</div><div class="od">After lifting, the system confirmed whether the object was actually in the gripper using visual feedback on hardware, and contact-point detection in simulation. Failed picks were rejected.</div></div><div class="obadge bcv">CV</div></div>
     <div class="obj-row"><div class="oi">04</div><div class="ob"><div class="oh">Perform Color-Based Object Sorting</div><div class="od">Each verified pick was classified as RED, GREEN, or BLUE and routed to the correct drop zone. Non-target color objects were skipped entirely.</div></div><div class="obadge bau">AUTO</div></div>
@@ -524,7 +524,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
         <div class="hw-dot">02</div>
         <div class="hw-body">
           <div class="hw-step-title">Preprocess Image + Identify Grasp Candidates</div>
-          <div class="hw-step-desc">The raw frame was to be resized and normalized. Candidate grasp regions were to be identified within the workspace — the bounding boxes that would be individually scored by the deep learning model.</div>
+          <div class="hw-step-desc">The raw frame was to be resized and normalized. Candidate grasp regions were to be identified within the workspace — the bounding boxes that would be individually scored by the HSV model.</div>
           <div class="hw-pills"><span class="hpill">Resize + Normalize</span><span class="hpill">Region Proposal</span></div>
         </div>
       </div>
@@ -532,7 +532,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
         <div class="hw-dot">03</div>
         <div class="hw-body">
           <div class="hw-step-title">Predict Grasp Quality — Select Best Pose</div>
-          <div class="hw-step-desc">A trained deep learning model (TensorFlow / PyTorch) was to score each candidate region. The region with the highest predicted quality was to be selected as the target grasp pose — replacing heuristic selection with a learned ranking.</div>
+          <div class="hw-step-desc">A trained HSV model (TensorFlow / PyTorch) was to score each candidate region. The region with the highest predicted quality was to be selected as the target grasp pose — replacing heuristic selection with a learned ranking.</div>
           <div class="hw-pills"><span class="hpill">TensorFlow / PyTorch</span><span class="hpill">Quality Score</span><span class="hpill">Best Pose Selection</span></div>
         </div>
       </div>
@@ -612,7 +612,7 @@ footer{border-top:1px solid var(--border);padding:2.2rem 3rem;display:flex;align
   <div class="section-badge sb-hw"><span class="sb-dot"></span>Hardware — Components</div>
   <div class="s-eyebrow eye-hw">Required Hardware</div>
   <div class="s-title">ALL COMPONENTS ACQUIRED</div>
-  <p class="s-lead">All hardware components were acquired and assembled. The robotic arm and color sorting mechanism were successfully demonstrated, while full integration with the deep learning grasp prediction pipeline is still under development.</p>
+  <p class="s-lead">All hardware components were acquired and assembled. The robotic arm and color sorting mechanism were successfully demonstrated, while full integration with the HSV grasp prediction pipeline is still under development.</p>
   <div class="hw-comp-grid rv">
     <div class="hw-comp"><div class="hcn">01</div><div class="hcname">4-DOF Robotic Arm Structure</div><div class="hcspec">4-joint arm with base rotation, shoulder, elbow, and wrist — 4 degrees of freedom designed to provide full tabletop pick-and-place workspace coverage.</div><div class="hc-badge">Acquired</div></div>
     <div class="hw-comp"><div class="hcn">02</div><div class="hcname">Servo Motors</div><div class="hcspec">One servo per joint (4 arm DOF + 1 gripper = 5 total). Each was to receive a PWM signal from Arduino for independent real-time joint angle control.</div><div class="hc-badge">Acquired</div></div>
